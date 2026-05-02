@@ -1,0 +1,11 @@
+{
+    "display_name": "WeChat iLink",
+    "loading_order": 10,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "WeChat-iLink",
+    "version": "1.2.0",
+    "homePage": "https://github.com/hjl2004-10/wechat-ilink"
+}

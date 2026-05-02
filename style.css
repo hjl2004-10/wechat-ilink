@@ -1,0 +1,111 @@
+.wechat-ilink-settings .wechat-ilink-status {
+    margin-bottom: 10px;
+}
+
+.wechat-ilink-settings .wechat-ilink-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.wechat-ilink-settings .wechat-ilink-dot.online {
+    background-color: #2ecc71;
+    box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+}
+
+.wechat-ilink-settings .wechat-ilink-dot.offline {
+    background-color: #e74c3c;
+}
+
+.wechat-ilink-settings .wechat-ilink-dot.connecting {
+    background-color: #f39c12;
+    animation: wechat-ilink-pulse 1.5s infinite;
+}
+
+@keyframes wechat-ilink-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.wechat-ilink-settings .wechat-ilink-qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.wechat-ilink-settings .wechat-ilink-qrcode {
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid var(--SmartThemeBorderColor, #444);
+    border-radius: 8px;
+}
+
+.wechat-ilink-settings #wechat_ilink_qr_canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid var(--SmartThemeBorderColor, #444);
+    width: 216px;
+    height: 216px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.wechat-ilink-settings #wechat_ilink_qr_canvas canvas {
+    display: none !important;
+}
+
+.wechat-ilink-settings #wechat_ilink_qr_canvas img {
+    display: block !important;
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.wechat-ilink-settings .wechat-ilink-qr-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border: 2px dashed var(--SmartThemeBorderColor, #444);
+    border-radius: 8px;
+    color: var(--SmartThemeBodyColor, #aaa);
+    gap: 8px;
+}
+
+.wechat-ilink-settings .wechat-ilink-qr-placeholder i {
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.wechat-ilink-settings .wechat-ilink-qr-status {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+    color: var(--SmartThemeBodyColor, #aaa);
+}
+
+.wechat-ilink-settings .gap5px {
+    gap: 5px;
+}
+
+.wechat-ilink-settings hr {
+    border: 0;
+    border-top: 1px solid var(--SmartThemeBorderColor, #333);
+    margin: 10px 0;
+}
+
+.wechat-ilink-settings small {
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.7;
+    color: var(--SmartThemeBodyColor, #aaa);
+}

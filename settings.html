@@ -1,0 +1,157 @@
+<div class="wechat-ilink-settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>WeChat iLink</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <!-- Connection Status -->
+            <div class="wechat-ilink-status">
+                <div class="flex-container alignitemscenter">
+                    <span id="wechat_ilink_status_dot" class="wechat-ilink-dot offline"></span>
+                    <span id="wechat_ilink_status_text">未连接</span>
+                </div>
+            </div>
+
+            <!-- QR Code Login -->
+            <div id="wechat_ilink_login_block">
+                <div class="wechat-ilink-qr-container">
+                    <img id="wechat_ilink_qrcode" class="wechat-ilink-qrcode" src="" alt="Scan QR Code" style="display:none;">
+                    <div id="wechat_ilink_qr_canvas" style="display:none;"></div>
+                    <div id="wechat_ilink_qr_placeholder" class="wechat-ilink-qr-placeholder">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>点击下方按钮获取二维码</span>
+                    </div>
+                </div>
+                <div id="wechat_ilink_qr_status" class="wechat-ilink-qr-status" style="display:none;"></div>
+                <div class="flex-container gap5px">
+                    <div id="wechat_ilink_get_qr" class="menu_button menu_button_icon" title="获取登录二维码">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>获取二维码</span>
+                    </div>
+                    <div id="wechat_ilink_disconnect" class="menu_button menu_button_icon" title="断开连接" style="display:none;">
+                        <i class="fa-solid fa-link-slash"></i>
+                        <span>断开连接</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- API Config -->
+            <label for="wechat_ilink_api_base">iLink API 地址</label>
+            <input id="wechat_ilink_api_base" type="text" class="text_pole" placeholder="https://ilinkai.weixin.qq.com" value="">
+            <small>默认使用微信官方 iLink 地址，如需自定义可修改。</small>
+
+            <label for="wechat_ilink_wechat_uin">X-WECHAT-UIN</label>
+            <input id="wechat_ilink_wechat_uin" type="text" class="text_pole" placeholder="随机 Base64 字符串" value="">
+            <small>请求头中的 UIN 标识，可随机生成或手动填写。</small>
+
+            <hr>
+
+            <!-- Behavior Config -->
+            <label for="wechat_ilink_poll_interval">消息轮询间隔 (秒)</label>
+            <input id="wechat_ilink_poll_interval" type="number" class="text_pole" min="1" max="60" value="3" step="1">
+
+            <label class="checkbox_label" for="wechat_ilink_inject_input">
+                <input id="wechat_ilink_inject_input" type="checkbox" class="checkbox">
+                <span>填入微信消息到输入框</span>
+                <i class="fa-solid fa-info-circle" title="收到微信消息时，将文字填入 SillyTavern 输入框。"></i>
+            </label>
+
+            <label class="checkbox_label" for="wechat_ilink_auto_send_input">
+                <input id="wechat_ilink_auto_send_input" type="checkbox" class="checkbox">
+                <span>自动发送输入（触发AI）</span>
+                <i class="fa-solid fa-info-circle" title="填入后自动点击发送，触发 AI 生成回复。需要先开启「填入微信消息到输入框」。"></i>
+            </label>
+
+            <label class="checkbox_label" for="wechat_ilink_auto_push_reply">
+                <input id="wechat_ilink_auto_push_reply" type="checkbox" class="checkbox">
+                <span>自动回推 AI 回复到微信</span>
+                <i class="fa-solid fa-info-circle" title="AI 生成回复后，自动发送到微信。仅对微信触发的对话生效，手动对话不会自动回推。"></i>
+            </label>
+
+            <hr>
+
+            <!-- 发送格式化 -->
+            <label class="checkbox_label" for="wechat_ilink_clean_markdown">
+                <input id="wechat_ilink_clean_markdown" type="checkbox" class="checkbox">
+                <span>发送前清理 Markdown 格式</span>
+                <i class="fa-solid fa-info-circle" title="去除 **粗体**、*斜体*、`代码`、```代码块```、# 标题、> 引用 等 Markdown 符号。"></i>
+            </label>
+
+            <label for="wechat_ilink_send_prefix">发送前缀</label>
+            <input id="wechat_ilink_send_prefix" type="text" class="text_pole" placeholder="例如：[AI] " value="">
+            <small>在每条发送到微信的消息前面添加的文字。</small>
+
+            <label for="wechat_ilink_send_suffix">发送后缀</label>
+            <input id="wechat_ilink_send_suffix" type="text" class="text_pole" placeholder="例如：&#10;—— by AI" value="">
+            <small>在每条发送到微信的消息后面添加的文字。支持 \n 换行。</small>
+
+            <label for="wechat_ilink_custom_replaces">自定义替换规则</label>
+            <textarea id="wechat_ilink_custom_replaces" class="text_pole" rows="3" placeholder="每行一条，格式：匹配内容=>替换内容&#10;例如：\n\n=>\n"></textarea>
+            <small>每行一条规则，用 => 分隔。左边支持正则表达式。</small>
+
+            <hr>
+
+            <label class="checkbox_label" for="wechat_ilink_show_debug">
+                <input id="wechat_ilink_show_debug" type="checkbox" class="checkbox">
+                <span>显示调试日志</span>
+            </label>
+
+            <hr>
+
+            <!-- Manual Send -->
+            <div class="flex-container gap5px">
+                <div id="wechat_ilink_send_last" class="menu_button menu_button_icon" title="手动发送最后一条 AI 回复到微信">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>发送最后回复</span>
+                </div>
+            </div>
+            <small>将 SillyTavern 中最后一条 AI 回复手动发送到微信。</small>
+
+            <hr>
+
+            <!-- 定时发送 -->
+            <div class="inline-drawer">
+                <div class="inline-drawer-toggle inline-drawer-header">
+                    <b>定时发送</b>
+                    <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+                </div>
+                <div class="inline-drawer-content">
+                    <label for="wechat_ilink_scheduled_source">发送内容</label>
+                    <select id="wechat_ilink_scheduled_source" class="text_pole">
+                        <option value="last_ai">最后一条 AI 回复</option>
+                        <option value="custom">自定义内容</option>
+                    </select>
+
+                    <textarea id="wechat_ilink_scheduled_content" class="text_pole" rows="3" placeholder="输入要定时发送的内容..." style="display:none;"></textarea>
+
+                    <div class="flex-container gap5px" style="align-items:center;">
+                        <div style="flex:1;">
+                            <label for="wechat_ilink_scheduled_interval">间隔（秒）</label>
+                            <input id="wechat_ilink_scheduled_interval" type="number" class="text_pole" min="1" max="86400" value="60" step="1">
+                        </div>
+                        <div style="flex:1;">
+                            <label for="wechat_ilink_scheduled_count">次数</label>
+                            <input id="wechat_ilink_scheduled_count" type="number" class="text_pole" min="0" max="9999" value="0" step="1">
+                            <small>0 = 不限次数</small>
+                        </div>
+                    </div>
+
+                    <div class="flex-container gap5px" style="margin-top:8px;">
+                        <div id="wechat_ilink_scheduled_start" class="menu_button menu_button_icon" title="开始定时发送">
+                            <i class="fa-solid fa-play"></i>
+                            <span>开始</span>
+                        </div>
+                        <div id="wechat_ilink_scheduled_stop" class="menu_button menu_button_icon" title="停止定时发送" style="display:none;">
+                            <i class="fa-solid fa-stop"></i>
+                            <span>停止</span>
+                        </div>
+                    </div>
+                    <small id="wechat_ilink_scheduled_status" style="margin-top:5px;"></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
