@@ -5,7 +5,11 @@
  * Eliminates the need for enableCorsProxy by proxying requests through Node.js.
  */
 
+import express from 'express';
+
 async function init(router) {
+    router.use(express.json());
+
     router.post('/proxy', async (req, res) => {
         try {
             const { url, method, headers, body } = req.body;
@@ -40,7 +44,9 @@ async function exit() {
     return Promise.resolve();
 }
 
-module.exports = {
+export { init, exit };
+
+export default {
     init,
     exit,
     info: {
