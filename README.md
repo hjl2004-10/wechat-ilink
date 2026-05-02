@@ -22,24 +22,55 @@
 ### 前置要求
 
 - SillyTavern 1.12+
-- 在 `config.yaml` 中启用 CORS 代理：
-
-```yaml
-enableCorsProxy: true
-```
-
-- **不要开启 SillyTavern 的密码验证**（`config.yaml` 中 `enableCorsProxy` 与密码验证不能同时使用，开启密码验证会导致 CORS 代理失效，扩展无法正常工作）
+- Node.js 18+（SillyTavern 自带）
 
 ### 安装步骤
 
-1. 将 `wechat-ilink` 文件夹复制到 SillyTavern 第三方扩展目录：
+1. 在 `config.yaml` 中启用 Server Plugin：
+
+```yaml
+enableServerPlugins: true
+```
+
+2. 将以下文件复制到 SillyTavern 的 **UI 扩展目录**：
+
+```
+manifest.json
+index.js
+settings.html
+style.css
+qrcode.min.js
+```
+
+目标路径：
 
 ```
 <SillyTavern>/public/scripts/extensions/third-party/wechat-ilink/
 ```
 
-2. 确认 `config.yaml` 中 `enableCorsProxy` 已设为 `true`
-3. 重启 SillyTavern
+3. 将 `server/` 文件夹复制到 SillyTavern 的 **Server Plugin 目录**：
+
+```
+<SillyTavern>/plugins/wechat-ilink/
+```
+
+完成后目录结构如下：
+
+```
+<SillyTavern>/
+├── plugins/
+│   └── wechat-ilink/
+│       └── index.js
+├── public/scripts/extensions/third-party/
+│   └── wechat-ilink/
+│       ├── manifest.json
+│       ├── index.js
+│       ├── settings.html
+│       ├── style.css
+│       └── qrcode.min.js
+```
+
+4. 重启 SillyTavern
 
 ## 使用方法
 
@@ -68,22 +99,24 @@ enableCorsProxy: true
 
 ```
 wechat-ilink/
-├── manifest.json      # SillyTavern 扩展清单
-├── index.js           # 主要逻辑
-├── settings.html      # 设置面板 UI
-├── style.css          # 样式
-├── qrcode.min.js      # QRCode.js（二维码生成）
-├── LICENSE            # MIT 许可证
+├── server/
+│   └── index.js          # Server Plugin（Node.js 服务端代理）
+├── manifest.json          # SillyTavern 扩展清单
+├── index.js               # 客户端主要逻辑
+├── settings.html          # 设置面板 UI
+├── style.css              # 样式
+├── qrcode.min.js          # QRCode.js（二维码生成）
+├── LICENSE                # MIT 许可证
 └── README.md
 ```
 
 ## 常见问题
 
 **Q: 扩展面板中没有看到 WeChat iLink？**
-A: 检查文件夹是否放在正确的第三方扩展目录下，并确认已重启 SillyTavern。
+A: 检查文件是否放在正确的第三方扩展目录下，并确认已重启 SillyTavern。
 
 **Q: 获取二维码失败？**
-A: 确认 `config.yaml` 中 `enableCorsProxy` 已设为 `true`，并重启 SillyTavern。
+A: 确认 `config.yaml` 中 `enableServerPlugins` 已设为 `true`，并确认 `server/index.js` 已放入 `plugins/wechat-ilink/` 目录。
 
 **Q: 微信消息没有触发 AI 回复？**
 A: 确认已在 SillyTavern 中选择了一个角色并打开了聊天。

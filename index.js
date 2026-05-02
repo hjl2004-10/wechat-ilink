@@ -76,18 +76,20 @@
         }
 
         const url = `${s.apiBase}${path}`;
-        const fetchOpts = {
-            method: options.method || 'GET',
-            headers,
-        };
-        if (options.body) fetchOpts.body = JSON.stringify(options.body);
 
-        // encodeURIComponent 避免 https:// 双斜杠被 Express 规范化
-        const proxyUrl = `/proxy/${encodeURIComponent(url)}`;
-
+        // 通过 Server Plugin 代理请求，无需 enableCorsProxy
         let resp;
         try {
-            resp = await fetch(proxyUrl, fetchOpts);
+            resp = await fetch('/api/plugins/wechat-ilink/proxy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url,
+                    method: options.method || 'GET',
+                    headers,
+                    body: options.body || null,
+                }),
+            });
         } catch (networkErr) {
             throw networkErr;
         }
