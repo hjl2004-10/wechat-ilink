@@ -28,6 +28,8 @@
 enableCorsProxy: true
 ```
 
+- **不要开启 SillyTavern 的密码验证**（`config.yaml` 中 `enableCorsProxy` 与密码验证不能同时使用，开启密码验证会导致 CORS 代理失效，扩展无法正常工作）
+
 ### 安装步骤
 
 1. 将 `wechat-ilink` 文件夹复制到 SillyTavern 第三方扩展目录：
@@ -88,6 +90,10 @@ A: 确认已在 SillyTavern 中选择了一个角色并打开了聊天。
 
 **Q: AI 回复没有发回微信？**
 A: 只有通过微信触发的对话才会自动回推。手动在 SillyTavern 中的对话不会自动发送到微信。可以使用「发送最后回复」按钮手动推送。
+
+## 联系方式
+
+有问题或建议欢迎通过邮件联系：3353467972@qq.com
 
 ## 许可证
 
